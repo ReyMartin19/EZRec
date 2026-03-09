@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-vue-next';
+import { BookOpen, Component, Dumbbell, FolderGit2, LayoutGrid, Play, Volleyball } from 'lucide-vue-next';
 import AppLogo from '@/components/AppLogo.vue';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
@@ -14,19 +14,34 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, events } from '@/routes';
+import { dashboard} from '@/routes';
 import type { NavItem } from '@/types';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: route('dashboard'),
         icon: LayoutGrid,
     },
     {
         title: 'Events',
-        href: events(),
-        icon: LayoutGrid,
+        href: route('events'),
+        icon: Play,
+    },
+    {
+        title: 'Athletes',
+        href: route('athletes.index'),
+        icon: Volleyball,
+    },
+    {
+        title: 'Coaches',
+        href: route('coaches'),
+        icon: Dumbbell,
+    },
+    {
+        title: 'Teams',
+        href: route('teams'),
+        icon: Component,
     },
 ];
 
