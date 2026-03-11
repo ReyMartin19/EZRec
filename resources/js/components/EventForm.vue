@@ -15,7 +15,7 @@ const form = useForm({
 
 const submit = () => {
     // Replace 'route' with your specific helper if needed
-    form.post(route('athletes.store'), {
+    form.post(route('events.store'), {
         onSuccess: () => {
             form.reset();
             // 2. Shout to the parent: "I successfully saved! You can close now!"
@@ -29,13 +29,13 @@ const submit = () => {
     <form @submit.prevent="submit" class="space-y-4 w-full pt-4">
         <div class="grid gap-2">
             <Label for="name">Name</Label>
-            <Input id="name" v-model="form.name" type="text" placeholder="Rey..." />
+            <Input id="name" v-model="form.name" type="text" placeholder="Badketball" />
             <p v-if="form.errors.name" class="text-xs text-red-500">{{ form.errors.name }}</p>
         </div>
 
         <div class="grid gap-2">
             <Label for="type">Type</Label>
-            <Input id="type" v-model="form.type" type="number" />
+            <Input id="type" v-model="form.type" type="text" />
             <p v-if="form.errors.type" class="text-xs text-red-500">{{ form.errors.type }}</p>
         </div>
 
@@ -46,7 +46,7 @@ const submit = () => {
         </div>
 
         <Button type="submit" :disabled="form.processing" class="w-full mt-2">
-            {{ form.processing ? 'Saving...' : 'Save Athlete' }}
+            {{ form.processing ? 'Saving...' : 'Save Event' }}
         </Button>
     </form>
 </template>
