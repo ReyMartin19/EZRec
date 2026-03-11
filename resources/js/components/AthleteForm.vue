@@ -51,7 +51,7 @@ const submit = () => {
         </div>
 
         <Select v-model="form.sport">
-            <SelectTrigger>
+            <SelectTrigger class="w-full">
                 <SelectValue placeholder="Select a sport from events" />
             </SelectTrigger>
             <SelectContent>
