@@ -11,7 +11,7 @@ Route::inertia('/', 'Welcome', [
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'Dashboard')->name('dashboard');
     Route::inertia('events', 'Events')->name('events');
-    Route::inertia('athletes', 'Athletes')->name('athletes.index');
+    Route::get('athletes', [AthleteController::class, 'index'])->name('athletes.index');
     Route::inertia('athletes/create', 'Athletes/Create')->name('athletes.create');
     Route::post('athletes', [AthleteController::class, 'store'])->name('athletes.store');
     Route::inertia('coaches', 'Coaches')->name('coaches');

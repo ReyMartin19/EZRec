@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Athlete;
+use Inertia\Inertia;
 
 class AthleteController extends Controller
 {
+
+    public function index()
+    {
+        $athletes = Athlete::all();
+        return Inertia::render('Athletes', [
+            'athletes' => $athletes,
+        ]);
+    }
     public function store(Request $request)
     {
         // 1. Validate exactly like you did in Blade

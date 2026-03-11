@@ -9,8 +9,8 @@ const emit = defineEmits(['success']);
 
 const form = useForm({
     name: '',
-    sport: '',
-    age: '',
+    type: '',
+    category: '',
 });
 
 const submit = () => {
@@ -28,21 +28,21 @@ const submit = () => {
 <template>
     <form @submit.prevent="submit" class="space-y-4 w-full pt-4">
         <div class="grid gap-2">
-            <Label for="name">Full Name</Label>
+            <Label for="name">Name</Label>
             <Input id="name" v-model="form.name" type="text" placeholder="Rey..." />
             <p v-if="form.errors.name" class="text-xs text-red-500">{{ form.errors.name }}</p>
         </div>
 
         <div class="grid gap-2">
-            <Label for="age">Age</Label>
-            <Input id="age" v-model="form.age" type="number" />
-            <p v-if="form.errors.age" class="text-xs text-red-500">{{ form.errors.age }}</p>
+            <Label for="type">Type</Label>
+            <Input id="type" v-model="form.type" type="number" />
+            <p v-if="form.errors.type" class="text-xs text-red-500">{{ form.errors.type }}</p>
         </div>
 
         <div class="grid gap-2">
-            <Label for="sport">Sport</Label>
-            <Input id="sport" v-model="form.sport" type="text" />
-            <p v-if="form.errors.sport" class="text-xs text-red-500">{{ form.errors.sport }}</p>
+            <Label for="category">Category</Label>
+            <Input id="category" v-model="form.category" type="text" />
+            <p v-if="form.errors.category" class="text-xs text-red-500">{{ form.errors.category }}</p>
         </div>
 
         <Button type="submit" :disabled="form.processing" class="w-full mt-2">
