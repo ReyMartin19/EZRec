@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('athletes', [AthleteController::class, 'index'])->name('athletes.index');
     Route::post('athletes', [AthleteController::class, 'store'])->name('athletes.store');
+    Route::put('athletes/{athlete}', [AthleteController::class, 'update'])->name('athletes.update');
 
     Route::inertia('coaches', 'Coaches')->name('coaches');
     Route::inertia('teams', 'Teams')->name('teams');

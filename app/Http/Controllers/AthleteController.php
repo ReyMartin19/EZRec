@@ -16,6 +16,7 @@ class AthleteController extends Controller
             'athletes' => $athletes,
         ]);
     }
+
     public function store(Request $request)
     {
         // 1. Validate exactly like you did in Blade
@@ -30,5 +31,17 @@ class AthleteController extends Controller
 
         // 3. Redirect back (Inertia handles this without a full page reload)
         return redirect()->back()->with('message', 'Athlete added!');
+    }
+
+    public function update(Request $request, Athlete $athlete)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'sport' => 'required|string|max:255',
+            'age' => 'required|integer|min:1',
+        ]);
+
+        $athlete->update($validated);
+        return redirect()->back();
     }
 }
