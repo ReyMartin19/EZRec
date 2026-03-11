@@ -4,24 +4,28 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-// 1. Tell the component it is allowed to send a "success" signal
+const props = defineProps<{ event?: any }>();
 const emit = defineEmits(['success']);
 
 const form = useForm({
-    name: '',
-    type: '',
-    category: '',
+    name: props.event?.name ?? '',
+    type: props.event?.type ?? '',
+    category: props.event?.category ?? '',
 });
 
 const submit = () => {
-    // Replace 'route' with your specific helper if needed
-    form.post(route('events.store'), {
-        onSuccess: () => {
-            form.reset();
-            // 2. Shout to the parent: "I successfully saved! You can close now!"
-            emit('success');
-        },
-    });
+    if (props.event) {
+        form.put(route('events.update', props.event.id), {
+            onSuccess: () => emit('success'),
+        });
+    } else {
+        form.post(route('events.store'), {
+            onSuccess: () => {
+                form.reset();
+                emit('success');
+            },
+        });
+    }
 };
 </script>
 
@@ -46,7 +50,7 @@ const submit = () => {
         </div>
 
         <Button type="submit" :disabled="form.processing" class="w-full mt-2">
-            {{ form.processing ? 'Saving...' : 'Save Event' }}
+            {{ form.processing ? 'Saving...' : (event ? 'Update Event' : 'Save Event') }}
         </Button>
     </form>
 </template>

@@ -31,4 +31,17 @@ class EventController extends Controller
         // 3. Redirect back (Inertia handles this without a full page reload)
         return redirect()->back()->with('message', 'Event added!');
     }
+
+    public function update(Request $request, Event $event)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'type'  => 'required|string|min:4|max:100',
+            'category' => 'required|string|max:100',
+        ]);
+
+        $event->update($validated);
+
+        return redirect()->back()->with('message', 'Event updated!');
+    }
 }
