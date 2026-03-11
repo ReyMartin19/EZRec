@@ -4,15 +4,8 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import EventForm from '@/components/EventForm.vue';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-vue-next'; // Icon for the button
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, } from '@/components/ui/dialog';
 
-// 1. Define the props coming from Laravel
 defineProps<{
     events: Array<{
         id: number;
@@ -22,7 +15,6 @@ defineProps<{
     }>;
 }>();
 
-// This controls if the popup is visible or not
 const isModalOpen = ref(false);
 </script>
 

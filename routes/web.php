@@ -14,7 +14,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('events', [EventController::class, 'index'])->name('events');
     Route::post('events', [EventController::class, 'store'])->name('events.store');
-
+    Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
+    
     Route::get('athletes', [AthleteController::class, 'index'])->name('athletes.index');
     Route::post('athletes', [AthleteController::class, 'store'])->name('athletes.store');
     Route::put('athletes/{athlete}', [AthleteController::class, 'update'])->name('athletes.update');
