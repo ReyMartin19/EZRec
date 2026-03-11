@@ -15,6 +15,7 @@ interface Athlete {
 
 defineProps<{
     athletes: Athlete[];
+    eventList: { id: number; name: string }[];
 }>();
 
 const selectedAthlete = ref<Athlete | null>(null);
@@ -51,6 +52,7 @@ const openCreateModal = () => {
                         </DialogHeader>
                         <AthleteForm 
                             :key="selectedAthlete?.id || 'new'" 
+                            :events="eventList"
                             :athlete="selectedAthlete" 
                             @success="isModalOpen = false" 
                         />
