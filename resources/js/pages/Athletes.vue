@@ -3,27 +3,33 @@ import { ref } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import AthleteForm from '@/components/AthleteForm.vue';
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-vue-next'; // Icon for the button
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from '@/components/ui/dialog';
+import { Plus } from 'lucide-vue-next';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
-// 1. Define the props coming from Laravel
+interface Athlete {
+    id: number;
+    name: string;
+    sport: string;
+    age: number;
+}
+
 defineProps<{
-    athletes: Array<{
-        id: number;
-        name: string;
-        sport: string;
-        age: number;
-    }>;
+    athletes: Athlete[];
 }>();
 
-// This controls if the popup is visible or not
+const selectedAthlete = ref<Athlete | null>(null);
+
 const isModalOpen = ref(false);
+
+const openEditModal = (athlete: Athlete) => {
+    selectedAthlete.value = athlete;
+    isModalOpen.value = true;
+};
+
+const openCreateModal = () => {
+    selectedAthlete.value = null;
+    isModalOpen.value = true;
+};
 </script>
 
 <template>
@@ -34,46 +40,45 @@ const isModalOpen = ref(false);
 
                 <Dialog v-model:open="isModalOpen">
                     <DialogTrigger as-child>
-                        <Button class="gap-2">
-                            <Plus class="h-4 w-4" />
-                            Add Athlete
+                        <Button @click="openCreateModal" class="gap-2">
+                            <Plus class="h-4 w-4" /> Add Athlete
                         </Button>
                     </DialogTrigger>
+                    
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>Add New Athlete</DialogTitle>
+                            <DialogTitle>{{ selectedAthlete ? 'Edit Athlete' : 'Add New Athlete' }}</DialogTitle>
                         </DialogHeader>
-                        <AthleteForm @success="isModalOpen = false" />
+                        <AthleteForm 
+                            :key="selectedAthlete?.id || 'new'" 
+                            :athlete="selectedAthlete" 
+                            @success="isModalOpen = false" 
+                        />
                     </DialogContent>
                 </Dialog>
             </div>
 
             <div class="rounded-md border bg-card">
-                <table class="w-full text-sm">
+                <table class="w-full text-sm text-left">
                     <thead class="bg-muted/50 border-b">
-                        <tr class="text-left">
-                            <th class="p-4 font-medium text-muted-foreground">Name</th>
-                            <th class="p-4 font-medium text-muted-foreground">Sport</th>
-                            <th class="p-4 font-medium text-muted-foreground text-center">Age</th>
-                            <th class="p-4 font-medium text-muted-foreground text-right">Actions</th>
+                        <tr>
+                            <th class="p-4 font-medium">Name</th>
+                            <th class="p-4 font-medium">Sport</th>
+                            <th class="p-4 font-medium text-center">Age</th>
+                            <th class="p-4 font-medium text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y">
-                        <tr v-for="athlete in athletes" :key="athlete.id" class="hover:bg-muted/50 transition-colors">
+                        <tr v-for="athlete in athletes" :key="athlete.id" class="hover:bg-muted/40">
                             <td class="p-4 font-semibold">{{ athlete.name }}</td>
                             <td class="p-4">{{ athlete.sport }}</td>
                             <td class="p-4 text-center">{{ athlete.age }}</td>
                             <td class="p-4 text-right">
-                                <Button variant="ghost" size="sm">
-                                    <a href="">Edit</a>
-                                </Button>
+                                <Button variant="ghost" size="sm" @click="openEditModal(athlete)">Edit</Button>
                             </td>
                         </tr>
-
                         <tr v-if="athletes.length === 0">
-                            <td colspan="4" class="p-8 text-center text-muted-foreground">
-                                No athletes found.
-                            </td>
+                            <td colspan="4" class="p-8 text-center text-muted-foreground">No athletes found.</td>
                         </tr>
                     </tbody>
                 </table>
