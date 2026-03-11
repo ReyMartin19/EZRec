@@ -6,16 +6,30 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-vue-next'; // Icon for the button
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, } from '@/components/ui/dialog';
 
+interface Event {
+    id: number;
+    name: string;
+    type: string;
+    category: string;
+}
+
 defineProps<{
-    events: Array<{
-        id: number;
-        name: string;
-        type: string;
-        category: string;
-    }>;
+    events: Event[];
 }>();
 
+const selectedEvent = ref<Event | null>(null);
+
 const isModalOpen = ref(false);
+
+const openEditModal = (event: Event) => {
+    selectedEvent.value = event;
+    isModalOpen.value = true;
+};
+
+const openCreateModal = () => {
+    selectedEvent.value = null;
+    isModalOpen.value = true;
+};
 </script>
 
 <template>
@@ -26,16 +40,20 @@ const isModalOpen = ref(false);
 
                 <Dialog v-model:open="isModalOpen">
                     <DialogTrigger as-child>
-                        <Button class="gap-2">
-                            <Plus class="h-4 w-4" />
-                            Add Event
+                        <Button @click="openCreateModal" class="gap-2">
+                            <Plus class="h-4 w-4" /> Add Athlete
                         </Button>
                     </DialogTrigger>
+                    
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>Add Event</DialogTitle>
+                            <DialogTitle>{{ selectedEvent ? 'Edit Event' : 'Add New Event' }}</DialogTitle>
                         </DialogHeader>
-                        <EventForm @success="isModalOpen = false" />
+                        <EventForm 
+                            :key="selectedEvent?.id || 'new'" 
+                            :event="selectedEvent" 
+                            @success="isModalOpen = false" 
+                        />
                     </DialogContent>
                 </Dialog>
             </div>
@@ -56,9 +74,7 @@ const isModalOpen = ref(false);
                             <td class="p-4">{{ event.type }}</td>
                             <td class="p-4 text-center">{{ event.category }}</td>
                             <td class="p-4 text-right">
-                                <Button variant="ghost" size="sm">
-                                    <a href="">Edit</a>
-                                </Button>
+                                <Button variant="ghost" size="sm" @click="openEditModal(event)">Edit</Button>
                             </td>
                         </tr>
 
