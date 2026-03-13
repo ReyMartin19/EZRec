@@ -6,22 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('athletes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');    // Correct way to define a name column
-            $table->string('sport');   // Same for sport
-            $table->integer('age');    // Use integer for age
+            $table->string('name');    
+            $table->string('sport');   
+            $table->integer('age');    
             $table->timestamps();
     });
     }
-    /**
-     * Reverse the migrations.
-     */
+
     public function down(): void
     {
         Schema::dropIfExists('athletes');

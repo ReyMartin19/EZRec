@@ -15,7 +15,10 @@ interface Athlete {
 
 defineProps<{
     athletes: Athlete[];
-    eventList: { id: number; name: string }[];
+    eventList: { 
+        id: number; 
+        name: string 
+    }[];
 }>();
 
 const selectedAthlete = ref<Athlete | null>(null);
