@@ -41,7 +41,7 @@ const openCreateModal = () => {
                 <Dialog v-model:open="isModalOpen">
                     <DialogTrigger as-child>
                         <Button @click="openCreateModal" class="gap-2">
-                            <Plus class="h-4 w-4" /> Add Athlete
+                            <Plus class="h-4 w-4" /> Add Event
                         </Button>
                     </DialogTrigger>
                     
