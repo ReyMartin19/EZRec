@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\AthleteController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\CoachController;
 
 Route::inertia('/', 'Welcome', [
     'canRegister' => Features::enabled(Features::registration()),
@@ -20,7 +21,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('athletes', [AthleteController::class, 'store'])->name('athletes.store');
     Route::put('athletes/{athlete}', [AthleteController::class, 'update'])->name('athletes.update');
 
-    Route::inertia('coaches', 'Coaches')->name('coaches');
+    Route::get('coaches', [CoachController::class, 'index'])->name('coaches');
+    Route::post('coaches', [CoachController::class, 'store'])->name('coaches.store');
+    Route::put('coaches/{coach}', [CoachController::class, 'update'])->name('coaches.update');
+
     Route::inertia('teams', 'Teams')->name('teams');
 });
 
