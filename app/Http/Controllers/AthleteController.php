@@ -35,10 +35,10 @@ class AthleteController extends Controller
         });
 
         return Inertia::render('Athletes', [
-            'athletes' => Athlete::with(['team', 'coach', 'events'])->latest()->get(),
+            'athletes' => $athletes,
             'eventList' => $events,
-            'teamList'  => Team::all(),
-            'coachList' => Coach::all(),
+            'teamList'  => $teams,
+            'coachList' => $coaches,
         ]);
     }
 
