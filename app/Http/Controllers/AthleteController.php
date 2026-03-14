@@ -55,6 +55,10 @@ class AthleteController extends Controller
 
         $athlete->update($validated);
 
+        if (!empty($validated['event_ids'])) {
+            $athlete->events()->sync($validated['event_ids']);
+        }
+
         return redirect()->back();
     }
 }
