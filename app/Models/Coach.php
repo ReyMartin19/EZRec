@@ -11,4 +11,14 @@ class Coach extends Model
         'event',
         'gender',
     ];
+
+    public function athletes()
+    {
+        return $this->hasMany(Athlete::class);
+    }
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
 }

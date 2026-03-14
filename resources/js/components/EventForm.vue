@@ -3,6 +3,7 @@ import { useForm } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
 
 const props = defineProps<{ event?: any }>();
 const emit = defineEmits(['success']);
@@ -37,11 +38,16 @@ const submit = () => {
             <p v-if="form.errors.name" class="text-xs text-red-500">{{ form.errors.name }}</p>
         </div>
 
-        <div class="grid gap-2">
-            <Label for="type">Type</Label>
-            <Input id="type" v-model="form.type" type="text" />
+        <Select v-model="form.type">
+            <SelectTrigger class="w-full">
+                <SelectValue placeholder="Select a type from events" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="Single">Single</SelectItem>
+                <SelectItem value="Team">Team</SelectItem>
+            </SelectContent>
             <p v-if="form.errors.type" class="text-xs text-red-500">{{ form.errors.type }}</p>
-        </div>
+        </Select>
 
         <div class="grid gap-2">
             <Label for="category">Category</Label>
