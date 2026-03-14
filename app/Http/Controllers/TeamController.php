@@ -10,9 +10,8 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $teams = Team::all();
         return Inertia::render('Teams', [
-            'teams' => $teams,
+            'teams' => Team::withCount('athletes')->get(),
         ]);
     }
 

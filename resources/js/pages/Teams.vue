@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, } from
 interface Team {
     id: number;
     name: string;
+    athletes_count: number;
 }
 
 defineProps<{
@@ -58,23 +59,23 @@ const openCreateModal = () => {
 
             <div class="rounded-md border bg-card">
                 <table class="w-full text-sm">
-                    <thead class="bg-muted/50 border-b">
+                    <thead>
                         <tr class="text-left">
                             <th class="p-4 font-medium text-muted-foreground">Name</th>
+                            <th class="p-4 font-medium text-muted-foreground text-center">Athletes</th>
                             <th class="p-4 font-medium text-muted-foreground text-right">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y">
-                        <tr v-for="team in teams" :key="team.id" class="hover:bg-muted/50 transition-colors">
+                    <tbody>
+                        <tr v-for="team in teams" :key="team.id">
                             <td class="p-4 font-semibold">{{ team.name }}</td>
+                            <td class="p-4 text-center">
+                                <span class="bg-muted px-2 py-0.5 rounded text-xs">
+                                    {{ team.athletes_count }} athletes
+                                </span>
+                            </td>
                             <td class="p-4 text-right">
                                 <Button variant="ghost" size="sm" @click="openEditModal(team)">Edit</Button>
-                            </td>
-                        </tr>
-
-                        <tr v-if="teams.length === 0">
-                            <td colspan="4" class="p-8 text-center text-muted-foreground">
-                                No teams found.
                             </td>
                         </tr>
                     </tbody>
