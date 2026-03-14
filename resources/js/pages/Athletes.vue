@@ -9,15 +9,29 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 interface Athlete {
     id: number;
     name: string;
-    sport: string;
     age: number;
+    team: { id: number; name: string } | null;
+    coach: { id: number; name: string } | null;
+    events: { id: number; name: string; type: string; category: string }[];
+    team_id: number | null;
+    coach_id: number | null;
 }
 
 defineProps<{
     athletes: Athlete[];
     eventList: { 
         id: number; 
-        name: string 
+        name: string;
+        type: string;
+        category: string;
+    }[];
+    teamList: { 
+        id: number; 
+        name: string;
+    }[];
+    coachList: { 
+        id: number; 
+        name: string;
     }[];
 }>();
 
@@ -56,6 +70,8 @@ const openCreateModal = () => {
                         <AthleteForm 
                             :key="selectedAthlete?.id || 'new'" 
                             :events="eventList"
+                            :teams="teamList"
+                            :coaches="coachList"
                             :athlete="selectedAthlete" 
                             @success="isModalOpen = false" 
                         />
@@ -68,16 +84,31 @@ const openCreateModal = () => {
                     <thead class="bg-muted/50 border-b">
                         <tr>
                             <th class="p-4 font-medium">Name</th>
-                            <th class="p-4 font-medium">Sport</th>
                             <th class="p-4 font-medium text-center">Age</th>
+                            <th class="p-4 font-medium text-center">Team</th>
+                            <th class="p-4 font-medium text-center">Event</th>
+                            <th class="p-4 font-medium text-center">Coach</th>
                             <th class="p-4 font-medium text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y">
                         <tr v-for="athlete in athletes" :key="athlete.id" class="hover:bg-muted/40">
                             <td class="p-4 font-semibold">{{ athlete.name }}</td>
-                            <td class="p-4">{{ athlete.sport }}</td>
                             <td class="p-4 text-center">{{ athlete.age }}</td>
+                            <td class="p-4 text-center">{{ athlete.team?.name ?? '—' }}</td>
+                            <td class="p-4">
+                                <div class="flex flex-col gap-0.8">
+                                    <span
+                                        v-for="event in athlete.events"
+                                        :key="event.id"
+                                        class="px-0.5 py-0.5 text-xs text-center"
+                                    >
+                                        {{ event.name }} - <span class="text-muted-foreground"> {{ event.type }}  {{ event.category }} </span>
+                                    </span>
+                                    <span v-if="!athlete.events?.length">—</span>
+                                </div>
+                            </td>
+                            <td class="p-4 text-center">{{ athlete.coach?.name ?? '—' }}</td>
                             <td class="p-4 text-right">
                                 <Button variant="ghost" size="sm" @click="openEditModal(athlete)">Edit</Button>
                             </td>

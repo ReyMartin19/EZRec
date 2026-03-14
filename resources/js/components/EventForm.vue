@@ -54,8 +54,8 @@ const submit = () => {
                 <SelectValue placeholder="Select a type from events" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value="Single">Boys</SelectItem>
-                <SelectItem value="Team">Girls</SelectItem>
+                <SelectItem value="Boys">Boys</SelectItem>
+                <SelectItem value="Girls">Girls</SelectItem>
             </SelectContent>
             <p v-if="form.errors.category" class="text-xs text-red-500">{{ form.errors.category }}</p>
         </Select>

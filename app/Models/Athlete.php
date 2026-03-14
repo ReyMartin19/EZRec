@@ -8,8 +8,10 @@ class Athlete extends Model
 {
     protected $fillable = [
         'name',
-        'sport',
         'age',
+        'coach_id',
+        'team_id',
+        'event_id',
     ];
 
     public function team()
@@ -20,5 +22,10 @@ class Athlete extends Model
     public function coach()
     {
         return $this->belongsTo(Coach::class);
+    }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class);
     }
 }

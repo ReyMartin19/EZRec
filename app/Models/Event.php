@@ -10,6 +10,9 @@ class Event extends Model
         'name',
         'type',
         'category',
+        'team_id',
+        'coach_id',
+        'athlete_id',
     ];
 
     public function athletes()
@@ -20,15 +23,5 @@ class Event extends Model
     public function teams()
     {
         return $this->belongsToMany(Team::class);
-    }
-
-    public function scopeSolo($query)
-    {
-        return $query->where('type', 'solo');
-    }
-
-    public function scopeTeam($query)
-    {
-        return $query->where('type', 'team');
     }
 }
