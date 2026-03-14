@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'type',
@@ -13,6 +16,7 @@ class Event extends Model
         'team_id',
         'coach_id',
         'athlete_id',
+        'max_members',
     ];
 
     public function athletes()

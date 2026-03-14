@@ -11,8 +11,9 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
-            $table->string('category');
+            $table->enum('type', ['solo', 'team']);
+            $table->enum('category', ['male', 'female', 'mixed']);
+            $table->unsignedInteger('max_members')->nullable();
             $table->timestamps();
         });
     }
