@@ -11,4 +11,14 @@ class Athlete extends Model
         'sport',
         'age',
     ];
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    public function coach()
+    {
+        return $this->belongsTo(Coach::class);
+    }
 }

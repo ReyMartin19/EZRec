@@ -10,6 +10,9 @@ return new class extends Migration
     {
         Schema::create('athletes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('coach_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
             $table->string('name');    
             $table->string('sport');   
             $table->integer('age');    

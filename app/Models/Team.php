@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Coach extends Model
+class Team extends Model
 {
     protected $fillable = [
         'name',
-        'event',
-        'gender',
     ];
 
     public function athletes()
@@ -17,8 +15,8 @@ class Coach extends Model
         return $this->hasMany(Athlete::class);
     }
 
-    public function team()
+    public function events()
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsToMany(Event::class);
     }
 }
