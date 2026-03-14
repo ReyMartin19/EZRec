@@ -49,11 +49,16 @@ const submit = () => {
             <p v-if="form.errors.type" class="text-xs text-red-500">{{ form.errors.type }}</p>
         </Select>
 
-        <div class="grid gap-2">
-            <Label for="category">Category</Label>
-            <Input id="category" v-model="form.category" type="text" />
+        <Select v-model="form.category">
+            <SelectTrigger class="w-full">
+                <SelectValue placeholder="Select a type from events" />
+            </SelectTrigger>
+            <SelectContent>
+                <SelectItem value="Single">Boys</SelectItem>
+                <SelectItem value="Team">Girls</SelectItem>
+            </SelectContent>
             <p v-if="form.errors.category" class="text-xs text-red-500">{{ form.errors.category }}</p>
-        </div>
+        </Select>
 
         <Button type="submit" :disabled="form.processing" class="w-full mt-2">
             {{ form.processing ? 'Saving...' : (event ? 'Update Event' : 'Save Event') }}
